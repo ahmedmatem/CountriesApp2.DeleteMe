@@ -36,16 +36,16 @@
             textBoxFilter = new TextBox();
             comboBoxSort = new ComboBox();
             dataGridViewCountries = new DataGridView();
-            dataGridViewTowns = new DataGridView();
-            countryBindingSource = new BindingSource(components);
-            townBindingSource = new BindingSource(components);
             countryIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             countryNameDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            countryBindingSource = new BindingSource(components);
+            dataGridViewTowns = new DataGridView();
             townIdDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             TownName = new DataGridViewTextBoxColumn();
+            townBindingSource = new BindingSource(components);
             ((System.ComponentModel.ISupportInitialize)dataGridViewCountries).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewTowns).BeginInit();
             ((System.ComponentModel.ISupportInitialize)countryBindingSource).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTowns).BeginInit();
             ((System.ComponentModel.ISupportInitialize)townBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -91,6 +91,7 @@
             textBoxFilter.Name = "textBoxFilter";
             textBoxFilter.Size = new Size(200, 23);
             textBoxFilter.TabIndex = 4;
+            textBoxFilter.TextChanged += OnTextChanged;
             // 
             // comboBoxSort
             // 
@@ -100,6 +101,7 @@
             comboBoxSort.Name = "comboBoxSort";
             comboBoxSort.Size = new Size(200, 23);
             comboBoxSort.TabIndex = 5;
+            comboBoxSort.SelectedIndexChanged += OnSelectionIndexChanged;
             // 
             // dataGridViewCountries
             // 
@@ -111,6 +113,25 @@
             dataGridViewCountries.Name = "dataGridViewCountries";
             dataGridViewCountries.Size = new Size(326, 342);
             dataGridViewCountries.TabIndex = 6;
+            dataGridViewCountries.SelectionChanged += OnCountrySelectionChanged;
+            // 
+            // countryIdDataGridViewTextBoxColumn
+            // 
+            countryIdDataGridViewTextBoxColumn.DataPropertyName = "CountryId";
+            countryIdDataGridViewTextBoxColumn.HeaderText = "Id";
+            countryIdDataGridViewTextBoxColumn.Name = "countryIdDataGridViewTextBoxColumn";
+            countryIdDataGridViewTextBoxColumn.Width = 50;
+            // 
+            // countryNameDataGridViewTextBoxColumn
+            // 
+            countryNameDataGridViewTextBoxColumn.DataPropertyName = "CountryName";
+            countryNameDataGridViewTextBoxColumn.HeaderText = "Държава";
+            countryNameDataGridViewTextBoxColumn.Name = "countryNameDataGridViewTextBoxColumn";
+            countryNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // countryBindingSource
+            // 
+            countryBindingSource.DataSource = typeof(Data.Models.Country);
             // 
             // dataGridViewTowns
             // 
@@ -123,37 +144,23 @@
             dataGridViewTowns.Size = new Size(326, 342);
             dataGridViewTowns.TabIndex = 7;
             // 
-            // countryBindingSource
-            // 
-            countryBindingSource.DataSource = typeof(Data.Models.Country);
-            // 
-            // townBindingSource
-            // 
-            townBindingSource.DataSource = typeof(Data.Models.Town);
-            // 
-            // countryIdDataGridViewTextBoxColumn
-            // 
-            countryIdDataGridViewTextBoxColumn.DataPropertyName = "CountryId";
-            countryIdDataGridViewTextBoxColumn.HeaderText = "CountryId";
-            countryIdDataGridViewTextBoxColumn.Name = "countryIdDataGridViewTextBoxColumn";
-            // 
-            // countryNameDataGridViewTextBoxColumn
-            // 
-            countryNameDataGridViewTextBoxColumn.DataPropertyName = "CountryName";
-            countryNameDataGridViewTextBoxColumn.HeaderText = "CountryName";
-            countryNameDataGridViewTextBoxColumn.Name = "countryNameDataGridViewTextBoxColumn";
-            // 
             // townIdDataGridViewTextBoxColumn
             // 
             townIdDataGridViewTextBoxColumn.DataPropertyName = "TownId";
-            townIdDataGridViewTextBoxColumn.HeaderText = "TownId";
+            townIdDataGridViewTextBoxColumn.HeaderText = "Id";
             townIdDataGridViewTextBoxColumn.Name = "townIdDataGridViewTextBoxColumn";
+            townIdDataGridViewTextBoxColumn.Width = 50;
             // 
             // TownName
             // 
             TownName.DataPropertyName = "TownName";
-            TownName.HeaderText = "TownName";
+            TownName.HeaderText = "Град";
             TownName.Name = "TownName";
+            TownName.Width = 200;
+            // 
+            // townBindingSource
+            // 
+            townBindingSource.DataSource = typeof(Data.Models.Town);
             // 
             // FormMain
             // 
@@ -171,9 +178,10 @@
             Name = "FormMain";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Държави и градове";
+            Load += FormMain_Load;
             ((System.ComponentModel.ISupportInitialize)dataGridViewCountries).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewTowns).EndInit();
             ((System.ComponentModel.ISupportInitialize)countryBindingSource).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewTowns).EndInit();
             ((System.ComponentModel.ISupportInitialize)townBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -190,10 +198,10 @@
         private DataGridView dataGridViewCountries;
         private DataGridView dataGridViewTowns;
         private BindingSource countryBindingSource;
+        private BindingSource townBindingSource;
         private DataGridViewTextBoxColumn countryIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn countryNameDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn townIdDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn TownName;
-        private BindingSource townBindingSource;
     }
 }
